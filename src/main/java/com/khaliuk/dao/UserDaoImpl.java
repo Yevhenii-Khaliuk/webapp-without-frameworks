@@ -1,7 +1,5 @@
 package com.khaliuk.dao;
 
-import com.khaliuk.Factory;
-import com.khaliuk.model.Category;
 import com.khaliuk.model.Role;
 import com.khaliuk.model.User;
 import java.sql.Connection;
@@ -99,11 +97,5 @@ public class UserDaoImpl implements UserDao {
         Long id = rs.getLong("r_id");
         String roleName = rs.getString("role_name");
         return new Role(id, Role.RoleName.valueOf(roleName));
-    }
-
-    public static void main(String[] args) {
-        UserDao userDao = new UserDaoImpl(Factory.getConnection());
-        User user = userDao.getByToken("token4");
-        System.out.println(user);
     }
 }
