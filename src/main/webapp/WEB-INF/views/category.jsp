@@ -13,7 +13,7 @@
 </head>
 <body>
     <h3>Category name: <c:out value="${category.categoryName}"/></h3>
-    <h3>Description: <c:out value="${category.description}"/></h3>
+    <h3>Description: <c:out value="${category.categoryDescription}"/></h3>
     <c:forEach items="${category.products}" var="p">
         <p>Products: <c:out value="${p.productName}"/></p>
     </c:forEach>

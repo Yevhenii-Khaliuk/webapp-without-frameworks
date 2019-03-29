@@ -6,13 +6,16 @@ import java.util.List;
 public class Category {
     private Long id;
     private String categoryName;
-    private String description;
+    private String categoryDescription;
     private List<Product> products = new ArrayList<>();
 
-    public Category(Long id, String categoryName, String description) {
+    public Category() {
+    }
+
+    public Category(Long id, String categoryName, String categoryDescription) {
         this.id = id;
         this.categoryName = categoryName;
-        this.description = description;
+        this.categoryDescription = categoryDescription;
     }
 
     public Long getId() {
@@ -31,12 +34,12 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCategoryDescription() {
+        return categoryDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     public List<Product> getProducts() {

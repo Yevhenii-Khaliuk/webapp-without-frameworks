@@ -12,6 +12,9 @@ public class User {
     private String lastName;
     private List<Role> roles = new ArrayList<>();
 
+    public User() {
+    }
+
     public User(Long id, String username, String password, String token, String firstName, String lastName) {
         this.id = id;
         this.username = username;
