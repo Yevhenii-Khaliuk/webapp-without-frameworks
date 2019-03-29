@@ -31,27 +31,30 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
 
     @Override
     public T get(ID id) {
-        Object result = new Object();
+        T result = null;
         try {
-            PreparedStatement statement = createSelectByIdPreparedStatement(connection, (T) result, id);
+            result = getParameterizedTypeClass().newInstance();
+            PreparedStatement statement = createSelectByIdPreparedStatement(connection, result, id);
             ResultSet resultSet = statement.executeQuery();
-            loadObjectFromQueryResult(resultSet, (T) result);
-        } catch (SQLException | IllegalAccessException e) {
+            if (resultSet.next()) {
+                loadObjectFromQueryResult(resultSet, result);
+            }
+        } catch (SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
-        return (T) result;
+        return result;
     }
 
     @Override
     public List<T> getAll() {
         List<T> resultList = new ArrayList<>();
-        Object result = new Object();
         try {
-            PreparedStatement statement = connection.prepareStatement(createSelectAllQuery((T) result),
+            T result = getParameterizedTypeClass().newInstance();
+            PreparedStatement statement = connection.prepareStatement(createSelectAllQuery(result),
                     Statement.RETURN_GENERATED_KEYS);
             ResultSet resultSet = statement.executeQuery();
             loadObjectsListFromQueryResult(resultSet, resultList);
-        } catch (SQLException | IllegalAccessException e) {
+        } catch (SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
         return resultList;
@@ -139,13 +142,19 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
     private String createSelectByIdQuery(T t) {
         Class<?> clazz = t.getClass();
         String table = EntityTableMapper.getTable(clazz.getSimpleName());
-        return "SELECT " + getColumnsFromClass(clazz) + " FROM " + table + " WHERE ID = ?";
+        return "SELECT " + getColumnsFromClass(clazz) +
+                " FROM " + table + " WHERE " + table + ".ID = ?";
     }
 
     private String getColumnsFromClass(Class<?> clazz) {
         String table = EntityTableMapper.getTable(clazz.getSimpleName());
         StringBuilder columns = new StringBuilder();
         for (Field field : clazz.getDeclaredFields()) {
+            // Skip lists
+            if (List.class.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
             if (columns.length() > 1) {
                 columns.append(", ");
             }
@@ -170,6 +179,11 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
 
         Class<?> clazz = t.getClass();
         for (Field field : clazz.getDeclaredFields()) {
+            // Skip lists
+            if (List.class.isAssignableFrom(field.getType())) {
+                continue;
+            }
+
             field.setAccessible(true);
             String column = getColumnFromField(field.getName());
             Object value = resultSet.getObject(column);
@@ -184,12 +198,12 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
     }
 
     private void loadObjectsListFromQueryResult(ResultSet resultSet, List<T> resultList)
-            throws SQLException, IllegalAccessException {
+            throws SQLException, IllegalAccessException, InstantiationException {
 
         while (resultSet.next()) {
-            Object result = new Object();
-            loadObjectFromQueryResult(resultSet, (T) result);
-            resultList.add((T) result);
+            T result = getParameterizedTypeClass().newInstance();
+            loadObjectFromQueryResult(resultSet, result);
+            resultList.add(result);
         }
     }
 
@@ -203,7 +217,6 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
             if (fieldName.equals("id")) {
                 where = " WHERE " + namePair;
             } else {
-                // TODO: add insertComma(StringBuilder sb) method; check other methods
                 if (values.length() > 1) {
                     values.append(", ");
                 }
@@ -234,11 +247,15 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
     }
 
     private String createDeleteQuery() {
-        Class<?> clazz = ((Class) ((ParameterizedType) getClass().getGenericInterfaces()[0])
-                .getActualTypeArguments()[0]);
+        Class<T> clazz = getParameterizedTypeClass();
 
         return "DELETE FROM " +
                 EntityTableMapper.getTable(clazz.getSimpleName()) +
                 " WHERE ID = ?";
+    }
+
+    private Class<T> getParameterizedTypeClass() {
+        return ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0]);
     }
 }
