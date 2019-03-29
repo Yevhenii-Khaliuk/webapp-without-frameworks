@@ -17,6 +17,13 @@ class EntityTableMapper {
     }
 
     static String getTable(String entity) {
-        return TablesOfEntities.valueOf(entity).toString();
+        String result = null;
+        for (TablesOfEntities table : TablesOfEntities.values()){
+            if (table.getEntity().equals(entity)) {
+                result = table.name();
+                break;
+            }
+        }
+        return result;
     }
 }
