@@ -38,7 +38,7 @@ public class ViewModel {
         return new ViewModel(view);
     }
 
-    public String gerRedirectUri() {
+    public String getRedirectUri() {
         return String.format(REDIRECT_TEMPLATE, view);
     }
 
