@@ -1,6 +1,5 @@
 package com.khaliuk.service;
 
-import com.khaliuk.DBEmulator;
 import com.khaliuk.dao.UserDao;
 import com.khaliuk.model.User;
 import java.nio.charset.StandardCharsets;
@@ -21,7 +20,6 @@ public class UserServiceImpl implements UserService {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
             StringBuilder hexString = new StringBuilder();
-
             for (int i = 0; i < hash.length; i++) {
                 String hex = Integer.toHexString(0xff & hash[i]);
                 if (hex.length() == 1) {
@@ -29,7 +27,6 @@ public class UserServiceImpl implements UserService {
                 }
                 hexString.append(hex);
             }
-
             return hexString.toString();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -38,9 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> authorize(User user) {
-        Optional<User> u = DBEmulator.getUsers().stream()
-                .filter(r -> r.getUsername().equals(user.getUsername()))
-                .findFirst();
+        Optional<User> u = userDao.getByUsername(user.getUsername());
 
         return u.map(User::getPassword)
                 .filter(p -> p.equals(sha256(user.getPassword())))
@@ -52,7 +47,7 @@ public class UserServiceImpl implements UserService {
         String hashedPassword = sha256(user.getPassword());
         user.setPassword(hashedPassword);
         user.setToken(generateToken());
-        return Optional.ofNullable(userDao.addUser(user));
+        return Optional.ofNullable(userDao.save(user));
     }
 
     @Override
