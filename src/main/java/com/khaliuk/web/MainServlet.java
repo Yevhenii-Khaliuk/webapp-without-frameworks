@@ -13,18 +13,19 @@ import static com.khaliuk.Factory.getUserDaoImpl;
 import static com.khaliuk.Factory.getUserServiceImpl;
 
 import com.khaliuk.controller.Controller;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MainServlet extends HttpServlet {
     private static final Map<Request, Controller> controllerMap = new HashMap<>();
+
     static {
         controllerMap.put(Request.of("GET", "/servlet/login"),
                 r -> ViewModel.of("login"));
@@ -52,7 +53,7 @@ public class MainServlet extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private  void processRequest(HttpServletRequest req, HttpServletResponse resp)
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Request request = Request.of(req.getMethod(), req.getRequestURI(), req.getParameterMap());
         Controller controller = controllerMap.getOrDefault(request, r -> ViewModel.of("404"));

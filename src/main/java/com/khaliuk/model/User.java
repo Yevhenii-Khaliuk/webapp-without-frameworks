@@ -29,6 +29,14 @@ public class User {
         this.password = password;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -69,23 +77,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public static User of(String username, String password) {
-        return  new User(username, password);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public static User of(String username, String password) {
+        return  new User(username, password);
     }
 }

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface UserDao {
 
-    User save (User user);
+    User save(User user);
 
     User getByToken(String token);
 

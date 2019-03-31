@@ -1,10 +1,10 @@
 package com.khaliuk.controller;
 
+import static java.util.Collections.emptyList;
+
+import com.khaliuk.service.CategoryService;
 import com.khaliuk.web.Request;
 import com.khaliuk.web.ViewModel;
-import com.khaliuk.service.CategoryService;
-
-import static java.util.Collections.emptyList;
 
 public class GetCategoryByIdController implements Controller {
 

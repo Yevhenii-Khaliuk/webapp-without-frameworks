@@ -12,6 +12,7 @@
     <title>Category</title>
 </head>
 <body>
+
     <h3>Category name: <c:out value="${category.categoryName}"/></h3>
     <h3>Description: <c:out value="${category.categoryDescription}"/></h3>
     <c:forEach items="${category.products}" var="p">
@@ -19,5 +20,6 @@
             value="/servlet/product?p_id=${p.id}"/>"><c:out
                 value="${p.productName}"/></a></p>
     </c:forEach>
+
 </body>
 </html>

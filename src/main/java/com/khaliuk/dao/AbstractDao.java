@@ -166,7 +166,7 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
     }
 
     private PreparedStatement createSelectByIdPreparedStatement(Connection connection,
-                T t, ID id) throws SQLException {
+                                                                T t, ID id) throws SQLException {
 
         PreparedStatement statement = connection.prepareStatement(createSelectByIdQuery(t),
                 Statement.RETURN_GENERATED_KEYS);

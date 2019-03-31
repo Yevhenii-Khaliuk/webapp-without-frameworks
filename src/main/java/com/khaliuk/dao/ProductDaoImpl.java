@@ -20,11 +20,11 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
 
     public List<Product> getAllByCategoryId(Long id) {
         String query = "SELECT P.ID, " +
-                        "P.PRODUCT_NAME, " +
-                        "P.PRODUCT_DESCRIPTION, " +
-                        "P.PRICE " +
-                        "FROM PRODUCTS P " +
-                        "WHERE P.FK_CATEGORY_ID = ?";
+                "P.PRODUCT_NAME, " +
+                "P.PRODUCT_DESCRIPTION, " +
+                "P.PRICE " +
+                "FROM PRODUCTS P " +
+                "WHERE P.FK_CATEGORY_ID = ?";
         List<Product> products = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(query);

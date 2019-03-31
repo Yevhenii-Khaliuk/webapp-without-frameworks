@@ -12,8 +12,10 @@
     <title>Product</title>
 </head>
 <body>
+
     <h3>Product name: <c:out value="${product.productName}"/></h3>
     <h3>Description: <c:out value="${product.productDescription}"/></h3>
     <h3>Price: <c:out value="${product.price}"/></h3>
+
 </body>
 </html>

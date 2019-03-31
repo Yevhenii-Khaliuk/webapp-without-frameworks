@@ -1,10 +1,10 @@
 package com.khaliuk.controller;
 
+import com.khaliuk.model.User;
+import com.khaliuk.service.UserService;
 import com.khaliuk.web.Cookie;
 import com.khaliuk.web.Request;
 import com.khaliuk.web.ViewModel;
-import com.khaliuk.model.User;
-import com.khaliuk.service.UserService;
 
 public class LoginUserController implements Controller {
     private final UserService userService;
