@@ -1,7 +1,6 @@
 package com.khaliuk.service;
 
 import com.khaliuk.dao.CategoryDao;
-import com.khaliuk.dao.CategoryDaoImpl;
 import com.khaliuk.model.Category;
 
 import java.util.List;
@@ -16,11 +15,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAll() {
-        return null;
+        return categoryDao.getAll();
     }
 
     @Override
     public Optional<Category> getById(Long id) {
-        return null;
+        return Optional.ofNullable(categoryDao.getById(id));
     }
 }
