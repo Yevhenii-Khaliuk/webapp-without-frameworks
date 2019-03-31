@@ -16,11 +16,19 @@ public class GetCategoryByIdController implements Controller {
 
     @Override
     public ViewModel process(Request req) {
-        String param = req.getParam("c_id")[0];
-        Long id = Long.parseLong(param);
-        return categoryService.getById(id)
-                .map(c ->ViewModel.of("category").withAttribute("category", c))
-                .orElseGet(() -> ViewModel.of("category").withAttribute("category", emptyList()));
-
+        if (req.getParam("c_id") == null) {
+            return ViewModel.of("404");
+        } else {
+            String param = req.getParam("c_id")[0];
+            try {
+                Long id = Long.parseLong(param);
+                return categoryService.getById(id)
+                        .map(c -> ViewModel.of("category").withAttribute("category", c))
+                        .orElseGet(() -> ViewModel.of("category")
+                                .withAttribute("category", emptyList()));
+            } catch (NumberFormatException e) {
+                return ViewModel.of("404");
+            }
+        }
     }
 }
