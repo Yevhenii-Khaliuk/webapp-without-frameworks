@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
     protected final Connection connection;
 
-    public AbstractDao(Connection connection) {
+    protected AbstractDao(Connection connection) {
         this.connection = connection;
     }
 
