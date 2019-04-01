@@ -15,11 +15,19 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String token, String firstName, String lastName) {
+    public User(Long id, String username, String password,
+                String token, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.token = token;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
