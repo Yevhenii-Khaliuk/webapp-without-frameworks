@@ -38,6 +38,8 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 loadObjectFromQueryResult(resultSet, result);
+            } else {
+                result = null;
             }
         } catch (SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();

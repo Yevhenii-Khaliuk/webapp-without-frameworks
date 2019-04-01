@@ -24,8 +24,7 @@ public class GetCategoryByIdController implements Controller {
                 Long id = Long.parseLong(param);
                 return categoryService.getById(id)
                         .map(c -> ViewModel.of("category").withAttribute("category", c))
-                        .orElseGet(() -> ViewModel.of("category")
-                                .withAttribute("category", emptyList()));
+                        .orElseGet(() -> ViewModel.of("404"));
             } catch (NumberFormatException e) {
                 return ViewModel.of("404");
             }

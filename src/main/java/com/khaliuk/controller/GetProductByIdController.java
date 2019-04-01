@@ -24,8 +24,7 @@ public class GetProductByIdController implements Controller {
                 Long id = Long.parseLong(param);
                 return productService.getById(id)
                         .map(p -> ViewModel.of("product").withAttribute("product", p))
-                        .orElseGet(() -> ViewModel.of("product")
-                                .withAttribute("product", emptyList()));
+                        .orElseGet(() -> ViewModel.of("404"));
             } catch (NumberFormatException e) {
                 return ViewModel.of("404");
             }
