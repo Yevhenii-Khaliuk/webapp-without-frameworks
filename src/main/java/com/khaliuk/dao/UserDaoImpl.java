@@ -17,6 +17,11 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
     }
 
     @Override
+    public User save(User user) {
+        return super.save(user);
+    }
+
+    @Override
     public User getByToken(String token) {
         String query = "SELECT U.ID AS U_ID, " +
                 "U.USERNAME, " +
