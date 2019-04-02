@@ -1,8 +1,10 @@
 package com.khaliuk.model;
 
+import com.khaliuk.dao.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "CATEGORIES")
 public class Category {
     private Long id;
     private String categoryName;

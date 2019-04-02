@@ -1,5 +1,8 @@
 package com.khaliuk.model;
 
+import com.khaliuk.dao.Table;
+
+@Table(name = "PRODUCTS")
 public class Product {
     private Long id;
     private String productName;

@@ -1,8 +1,10 @@
 package com.khaliuk.model;
 
+import com.khaliuk.dao.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "USERS")
 public class User {
     private Long id;
     private String username;

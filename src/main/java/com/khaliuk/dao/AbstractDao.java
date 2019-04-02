@@ -98,9 +98,18 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
             values.append("?");
         }
         return "INSERT INTO " +
-                EntityTableMapper.getTable(clazz.getSimpleName()) +
+                getTableName(clazz) +
                 " (" + columns.toString() + ") VALUES (" +
                 values.toString() + ")";
+    }
+
+    private String getTableName(Class<?> clazz) {
+        String tableName = null;
+        if (clazz.isAnnotationPresent(Table.class)) {
+            Table table = (Table) clazz.getAnnotation(Table.class);
+            tableName = table.name();
+        }
+        return tableName;
     }
 
     private String getColumnFromField(String field) {
@@ -143,13 +152,13 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
 
     private String createSelectByIdQuery(T t) {
         Class<?> clazz = t.getClass();
-        String table = EntityTableMapper.getTable(clazz.getSimpleName());
+        String table = getTableName(clazz);
         return "SELECT " + getColumnsFromClass(clazz) +
                 " FROM " + table + " WHERE " + table + ".ID = ?";
     }
 
     private String getColumnsFromClass(Class<?> clazz) {
-        String table = EntityTableMapper.getTable(clazz.getSimpleName());
+        String table = getTableName(clazz);
         StringBuilder columns = new StringBuilder();
         for (Field field : clazz.getDeclaredFields()) {
             // Skip lists
@@ -195,7 +204,7 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
 
     private String createSelectAllQuery(T t) {
         Class<?> clazz = t.getClass();
-        String table = EntityTableMapper.getTable(clazz.getSimpleName());
+        String table = getTableName(clazz);
         return "SELECT " + getColumnsFromClass(clazz) + " FROM " + table;
     }
 
@@ -225,7 +234,7 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
                 values.append(namePair);
             }
         }
-        String table = EntityTableMapper.getTable(clazz.getSimpleName());
+        String table = getTableName(clazz);
         return "UPDATE " + table + " SET " + values.toString() + where;
     }
 
@@ -252,7 +261,7 @@ public abstract class AbstractDao<T, ID> implements GenericDao<T, ID> {
         Class<T> clazz = getParameterizedTypeClass();
 
         return "DELETE FROM " +
-                EntityTableMapper.getTable(clazz.getSimpleName()) +
+                getTableName(clazz) +
                 " WHERE ID = ?";
     }
 
