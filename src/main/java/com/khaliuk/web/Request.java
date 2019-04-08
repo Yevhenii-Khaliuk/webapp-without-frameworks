@@ -30,10 +30,18 @@ public class Request {
         return uri;
     }
 
+    public String[] getParam(String name) {
+        return params.get(name);
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Request request = (Request) o;
         return Objects.equals(method, request.method) &&
                 Objects.equals(uri, request.uri);
@@ -50,9 +58,5 @@ public class Request {
 
     public static Request of(String method, String uri) {
         return  new Request(method, uri);
-    }
-
-    public String[] getParam(String name) {
-        return params.get(name);
     }
 }

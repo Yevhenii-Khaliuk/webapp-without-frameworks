@@ -1,12 +1,17 @@
 package com.khaliuk.model;
 
+import com.khaliuk.annotations.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "ROLES")
 public class Role {
     private Long id;
     private RoleName roleName;
     private List<User> users = new ArrayList<>();
+
+    public Role() {
+    }
 
     public Role(Long id, RoleName roleName) {
         this.id = id;

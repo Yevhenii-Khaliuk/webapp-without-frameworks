@@ -1,8 +1,10 @@
 package com.khaliuk.model;
 
+import com.khaliuk.annotations.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "USERS")
 public class User {
     private Long id;
     private String username;
@@ -12,7 +14,11 @@ public class User {
     private String lastName;
     private List<Role> roles = new ArrayList<>();
 
-    public User(Long id, String username, String password, String token, String firstName, String lastName) {
+    public User() {
+    }
+
+    public User(Long id, String username, String password,
+                String token, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -21,9 +27,24 @@ public class User {
         this.lastName = lastName;
     }
 
+    public User(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -66,23 +87,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public static User of(String username, String password) {
-        return  new User(username, password);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public static User of(String username, String password) {
+        return  new User(username, password);
     }
 }

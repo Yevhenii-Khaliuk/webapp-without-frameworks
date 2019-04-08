@@ -15,6 +15,16 @@
     </servlet-mapping>
 
     <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.khaliuk.web.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>MainServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
         <filter-name>UserName</filter-name>
         <filter-class>com.khaliuk.web.UserFilter</filter-class>
     </filter>

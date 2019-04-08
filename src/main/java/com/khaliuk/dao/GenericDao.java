@@ -3,9 +3,9 @@ package com.khaliuk.dao;
 import java.util.List;
 
 public interface GenericDao<T, ID> {
-    T create(T t);
+    T save(T t);
 
-    T getById(ID id);
+    T get(ID id);
 
     List<T> getAll();
 

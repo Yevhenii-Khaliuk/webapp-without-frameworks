@@ -24,6 +24,10 @@ public class ViewModel {
         return attributes;
     }
 
+    public List<Cookie> getCookies() {
+        return cookies;
+    }
+
     public ViewModel withAttribute(String name, Object o) {
         this.attributes.put(name, o);
         return this;
@@ -34,15 +38,11 @@ public class ViewModel {
         return this;
     }
 
-    public static ViewModel of(String view) {
-        return new ViewModel(view);
-    }
-
-    public String gerRedirectUri() {
+    public String getRedirectUri() {
         return String.format(REDIRECT_TEMPLATE, view);
     }
 
-    public List<Cookie> getCookies() {
-        return cookies;
+    public static ViewModel of(String view) {
+        return new ViewModel(view);
     }
 }

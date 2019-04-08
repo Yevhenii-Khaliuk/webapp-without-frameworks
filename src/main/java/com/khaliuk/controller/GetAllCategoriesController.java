@@ -1,8 +1,8 @@
 package com.khaliuk.controller;
 
+import com.khaliuk.service.CategoryService;
 import com.khaliuk.web.Request;
 import com.khaliuk.web.ViewModel;
-import com.khaliuk.service.CategoryService;
 
 public class GetAllCategoriesController implements Controller {
 

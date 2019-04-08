@@ -11,6 +11,8 @@
     <title>Not Allowed</title>
 </head>
 <body>
+
     <h1>You are not allowed to visit this page</h1>
+
 </body>
 </html>

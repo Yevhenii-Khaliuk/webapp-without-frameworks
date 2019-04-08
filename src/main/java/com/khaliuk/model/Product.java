@@ -1,15 +1,21 @@
 package com.khaliuk.model;
 
+import com.khaliuk.annotations.Table;
+
+@Table(name = "PRODUCTS")
 public class Product {
     private Long id;
     private String productName;
-    private String description;
+    private String productDescription;
     private double price;
 
-    public Product(Long id, String productName, String description, double price) {
+    public Product() {
+    }
+
+    public Product(Long id, String productName, String productDescription, double price) {
         this.id = id;
         this.productName = productName;
-        this.description = description;
+        this.productDescription = productDescription;
         this.price = price;
     }
 
@@ -29,12 +35,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
     public Long getId() {

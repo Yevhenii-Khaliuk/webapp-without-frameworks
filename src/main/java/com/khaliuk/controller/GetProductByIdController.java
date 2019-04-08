@@ -2,28 +2,28 @@ package com.khaliuk.controller;
 
 import static java.util.Collections.emptyList;
 
-import com.khaliuk.service.CategoryService;
+import com.khaliuk.service.ProductService;
 import com.khaliuk.web.Request;
 import com.khaliuk.web.ViewModel;
 
-public class GetCategoryByIdController implements Controller {
+public class GetProductByIdController implements Controller {
 
-    private final CategoryService categoryService;
+    private final ProductService productService;
 
-    public GetCategoryByIdController(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public GetProductByIdController(ProductService productService) {
+        this.productService = productService;
     }
 
     @Override
     public ViewModel process(Request req) {
-        if (req.getParam("c_id") == null) {
+        if (req.getParam("p_id") == null) {
             return ViewModel.of("404");
         } else {
-            String param = req.getParam("c_id")[0];
+            String param = req.getParam("p_id")[0];
             try {
                 Long id = Long.parseLong(param);
-                return categoryService.getById(id)
-                        .map(c -> ViewModel.of("category").withAttribute("category", c))
+                return productService.getById(id)
+                        .map(p -> ViewModel.of("product").withAttribute("product", p))
                         .orElseGet(() -> ViewModel.of("404"));
             } catch (NumberFormatException e) {
                 return ViewModel.of("404");

@@ -2,13 +2,18 @@ package com.khaliuk;
 
 import com.khaliuk.controller.GetAllCategoriesController;
 import com.khaliuk.controller.GetCategoryByIdController;
+import com.khaliuk.controller.GetProductByIdController;
 import com.khaliuk.controller.LoginUserController;
 import com.khaliuk.dao.CategoryDao;
 import com.khaliuk.dao.CategoryDaoImpl;
+import com.khaliuk.dao.ProductDao;
+import com.khaliuk.dao.ProductDaoImpl;
 import com.khaliuk.dao.UserDao;
 import com.khaliuk.dao.UserDaoImpl;
 import com.khaliuk.service.CategoryService;
 import com.khaliuk.service.CategoryServiceImpl;
+import com.khaliuk.service.ProductService;
+import com.khaliuk.service.ProductServiceImpl;
 import com.khaliuk.service.UserService;
 import com.khaliuk.service.UserServiceImpl;
 import java.sql.Connection;
@@ -22,7 +27,8 @@ public class Factory {
     static {
         try {
             Class.forName("org.h2.Driver");
-            connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+            connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test",
+                    "sa", "");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +50,8 @@ public class Factory {
         return new UserDaoImpl(connection);
     }
 
-    public static GetAllCategoriesController getGetAllCategoriesController(CategoryService categoryService) {
+    public static GetAllCategoriesController getGetAllCategoriesController(
+            CategoryService categoryService) {
         return new GetAllCategoriesController(categoryService);
     }
 
@@ -56,7 +63,21 @@ public class Factory {
         return new CategoryDaoImpl(connection);
     }
 
-    public static GetCategoryByIdController getGetCategoryByIdController(CategoryService categoryService) {
+    public static GetCategoryByIdController getGetCategoryByIdController(
+            CategoryService categoryService) {
         return new GetCategoryByIdController(categoryService);
+    }
+
+    public static GetProductByIdController getGetProductByIdController(
+            ProductService productService) {
+        return new GetProductByIdController(productService);
+    }
+
+    public static ProductService getProductService(ProductDao productDao) {
+        return new ProductServiceImpl(productDao);
+    }
+
+    public static ProductDao getProductDao(Connection connection) {
+        return new ProductDaoImpl(connection);
     }
 }
