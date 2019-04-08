@@ -1,6 +1,6 @@
 package com.khaliuk.model;
 
-import com.khaliuk.dao.Table;
+import com.khaliuk.annotations.Table;
 
 @Table(name = "PRODUCTS")
 public class Product {

@@ -1,5 +1,6 @@
 package com.khaliuk.dao;
 
+import com.khaliuk.annotations.Table;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.sql.Connection;

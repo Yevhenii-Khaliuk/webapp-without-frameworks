@@ -1,4 +1,4 @@
-package com.khaliuk.dao;
+package com.khaliuk.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

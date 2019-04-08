@@ -1,6 +1,6 @@
 package com.khaliuk.model;
 
-import com.khaliuk.dao.Table;
+import com.khaliuk.annotations.Table;
 import java.util.ArrayList;
 import java.util.List;
 
